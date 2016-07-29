@@ -82,7 +82,7 @@ module.exports = (app) => {
       return
     }
 
-    bot.reply(message, app.messages('HEARD_SARCASM'))
+    bot.reply(message, app.messages('HEARD_SNARK'))
     bot.startTyping(message)
 
     app.comments.newComment(message.team, (err, comment, commentId) => {
@@ -97,7 +97,7 @@ module.exports = (app) => {
   })
 
   controller.hears(['test'], atBot, (bot, message) => {
-    bot.reply(message, app.messages('HEARD_SARCASM'))
+    bot.reply(message, app.messages('HEARD_SNARK'))
     bot.startTyping(message)
 
     app.comments.newComment(message.team, (err, comment, commentId) => {
