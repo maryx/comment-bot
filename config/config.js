@@ -3,19 +3,14 @@ module.exports = {
     port: process.env.PORT,
     spreadsheet: {
       ttl: '15 minutes',
-      id: '1gn9Cpk7H8uK5ADhlUSHvNqdzwBLsLIYe0JY7IjOomyg',
+      id: process.env.GOOGLE_DOC_ID,
       sheet: 1
     },
     slack: {
       verifyToken: process.env.SLACK_VERIFY_TOKEN
     },
     cache: {
-      store: 'redis',
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-      options: {
-        password: process.env.REDIS_PASS
-      }
+      store: 'memory'
     },
     logging: {
       colorize: false,

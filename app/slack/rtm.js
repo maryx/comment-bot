@@ -96,6 +96,21 @@ module.exports = (app) => {
     })
   })
 
+  controller.hears(['test'], atBot, (bot, message) => {
+    bot.reply(message, app.messages('HEARD_SARCASM'))
+    bot.startTyping(message)
+
+    app.comments.newComment(message.team, (err, comment, commentId) => {
+      if (err) {
+        app.log.error(err.message)
+      }
+      // make it seem like bot is typing a comment for a bit
+      setTimeout(() => {
+        bot.reply(message, comment || app.messages('NO_COMMENT_INITIATED'))
+      }, 2000)
+    })
+  })
+
   controller.hears(['good one', 'nice', 'thanks', 'wow'], atBot, (bot, message) => {
     bot.reply(message, app.messages('THANKS'))
   })

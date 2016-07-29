@@ -5,15 +5,5 @@ avatar: images/avatar.jpg
 config:
   - name: NODE_ENV
     global: true
-  - name: REDIS_HOST
+  - name: GOOGLE_DOC_ID
     global: true
-    type: secret
-  - name: REDIS_PORT
-    global: true
-    type: secret
-  - name: REDIS_PASS
-    global: true
-    type: secret
-  - name: MIXPANEL_TOKEN
-    global: true
-    type: secret
