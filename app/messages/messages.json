@@ -9,6 +9,14 @@
         "Drink up! Time for your Koolaid shot!",
         "This conversation is too nice. Time to add some spice.",
         "How's your day going? Wait wait wait let me ruin it... :smirk:",
+        "I'm being completely serious here...",
+        "I'm trying to be sarcastic here?",
+        ""
+    ],
+    "USELESS_COMMENT": [
+        "Woah it's getting kinda boring here! Let's chat more!",
+        "So much to tell you! Here's a nugget of wisdom!",
+        "Let me invigorate your day by providing you with a potentially useless comment!",
         ""
     ],
     "NO_COMMENT": [

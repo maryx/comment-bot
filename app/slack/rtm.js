@@ -76,7 +76,7 @@ module.exports = (app) => {
     })
   })
 
-  controller.hears(['great', 'wow', 'genius', 'seriously', 'yeah right', 'whatever', '...', 'lmao'], ['ambient'], (bot, message) => {
+  controller.hears(['great', 'geez', 'wow', 'genius', 'seriously', 'yeah right', 'whatever', '...', 'lmao'], ['ambient'], (bot, message) => {
     // limit the amount of ambient responses
     if (!ambientCheck(message.team)) {
       return
@@ -96,8 +96,28 @@ module.exports = (app) => {
     })
   })
 
+  controller.hears(['ok', 'alright', 'just', 'still', 'agree', 'well,', 'team', 'basically', 'analysis'], ['ambient'], (bot, message) => {
+    // limit the amount of ambient responses
+    if (!ambientCheck(message.team)) {
+      return
+    }
+
+    bot.reply(message, app.messages('USELESS_COMMENT'))
+    bot.startTyping(message)
+
+    app.comments.newComment(message.team, (err, comment, commentId) => {
+      if (err) {
+        app.log.error(err.message)
+      }
+      // make it seem like bot is typing a comment for a bit
+      setTimeout(() => {
+        bot.reply(message, comment || app.messages('NO_COMMENT_INITIATED'))
+      }, 2000)
+    })
+  })
+
   controller.hears(['test'], atBot, (bot, message) => {
-    bot.reply(message, app.messages('HEARD_SNARK'))
+    bot.reply(message, app.messages('USELESS_COMMENT'))
     bot.startTyping(message)
 
     app.comments.newComment(message.team, (err, comment, commentId) => {
