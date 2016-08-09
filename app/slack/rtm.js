@@ -33,6 +33,7 @@ module.exports = (app) => {
   })
 
   var atBot = ['direct_message', 'direct_mention', 'mention']
+  var allMessages = ['direct_message', 'direct_mention', 'mention', 'ambient']
 
   controller.hears('comment', atBot, (bot, message) => {
     // filter out a matching slash command
@@ -49,6 +50,16 @@ module.exports = (app) => {
 
       bot.reply(message, comment || app.messages('NO_COMMENT'))
     })
+  })
+
+  controller.hears(['shrug', 'dunno', 'dont know', "don't know", 'no idea', 'idk', 'hmmm'], allMessages, (bot, message) => {
+    bot.reply(message, ':thinking_face:')
+    bot.startTyping(message)
+
+    // make it seem like bot is typing a comment for a bit
+    setTimeout(() => {
+        bot.reply(message, comment || app.messages('HEARD_SHRUG'))
+    }, 2000)
   })
 
   controller.hears('yahoo', ['ambient'], (bot, message) => {
@@ -116,22 +127,7 @@ module.exports = (app) => {
     })
   })
 
-  controller.hears(['test'], atBot, (bot, message) => {
-    bot.reply(message, app.messages('USELESS_COMMENT'))
-    bot.startTyping(message)
-
-    app.comments.newComment(message.team, (err, comment, commentId) => {
-      if (err) {
-        app.log.error(err.message)
-      }
-      // make it seem like bot is typing a comment for a bit
-      setTimeout(() => {
-        bot.reply(message, comment || app.messages('NO_COMMENT_INITIATED'))
-      }, 2000)
-    })
-  })
-
-  controller.hears(['good one', 'nice', 'thanks', 'wow'], atBot, (bot, message) => {
+  controller.hears(['good one', 'nice', 'thanks', 'wow', 'thank you'], atBot, (bot, message) => {
     bot.reply(message, app.messages('THANKS'))
   })
 
