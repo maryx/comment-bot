@@ -58,7 +58,7 @@ module.exports = (app) => {
 
     // make it seem like bot is typing a comment for a bit
     setTimeout(() => {
-        bot.reply(message, comment || app.messages('HEARD_SHRUG'))
+        bot.reply(message, app.messages('HEARD_SHRUG'))
     }, 2000)
   })
 
