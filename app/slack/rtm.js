@@ -53,26 +53,22 @@ module.exports = (app) => {
   })
 
   controller.hears(['shrug', 'dunno', 'dont know', "don't know", 'no idea', 'idk', 'hmmm'], allMessages, (bot, message) => {
-    bot.reply(message, ':thinking_face:')
+    bot.reply(message, ':thinking_face: ...')
     bot.startTyping(message)
 
     // make it seem like bot is typing a comment for a bit
     setTimeout(() => {
-        bot.reply(message, app.messages('HEARD_SHRUG'))
+        bot.reply(message, app.messages('SHRUG_COMMENT'))
     }, 2000)
   })
 
-  controller.hears('yahoo', ['ambient'], (bot, message) => {
-    // filter out a matching slash command
-    if (message.text === '/comment') {
-      return
-    }
+  controller.hears('yahoo', allMessages, (bot, message) => {
     // limit the amount of ambient responses
     if (!ambientCheck(message.team)) {
       return
     }
 
-    bot.reply(message, app.messages('HEARD_YAHOO'))
+    bot.reply(message, app.messages('YAHOO_COMMENT'))
     bot.startTyping(message)
 
     app.comment.newComment(message.team, (err, comment, commentId) => {
@@ -87,13 +83,13 @@ module.exports = (app) => {
     })
   })
 
-  controller.hears(['great', 'geez', 'wow', 'genius', 'seriously', 'yeah right', 'whatever', '...', 'lmao'], ['ambient'], (bot, message) => {
+  controller.hears(['great', 'geez', 'wow', 'genius', 'seriously', 'yeah right', 'whatever', 'totally', 'lmao'], ['ambient'], (bot, message) => {
     // limit the amount of ambient responses
     if (!ambientCheck(message.team)) {
       return
     }
 
-    bot.reply(message, app.messages('HEARD_SNARK'))
+    bot.reply(message, app.messages('SNARKY_COMMENT'))
     bot.startTyping(message)
 
     app.comments.newComment(message.team, (err, comment, commentId) => {
@@ -107,7 +103,7 @@ module.exports = (app) => {
     })
   })
 
-  controller.hears(['ok', 'alright', 'just', 'still', 'agree', 'well,', 'team', 'basically', 'analysis'], ['ambient'], (bot, message) => {
+  controller.hears(['ok', 'alright', 'just', 'still', 'agree', 'well,', 'team', 'basically', 'analysis', 'another', 'does', 'there', 'you'], ['ambient'], (bot, message) => {
     // limit the amount of ambient responses
     if (!ambientCheck(message.team)) {
       return
