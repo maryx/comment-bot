@@ -53,6 +53,11 @@ module.exports = (app) => {
   })
 
   controller.hears(['shrug', 'dunno', 'dont know', "don't know", 'no idea', 'idk', 'hmmm'], allMessages, (bot, message) => {
+    // limit the amount of ambient responses
+    if (!ambientCheck(message.team)) {
+      return
+    }
+
     bot.reply(message, ':thinking_face: ...')
     bot.startTyping(message)
 
@@ -103,7 +108,7 @@ module.exports = (app) => {
     })
   })
 
-  controller.hears(['ok', 'alright', 'just', 'still', 'agree', 'well,', 'team', 'basically', 'analysis', 'another', 'does', 'there', 'you'], ['ambient'], (bot, message) => {
+  controller.hears(['ok', 'alright', 'just', 'still', 'agree', 'well,', 'team', 'basically', 'analysis', 'another', 'does', 'there', 'your'], ['ambient'], (bot, message) => {
     // limit the amount of ambient responses
     if (!ambientCheck(message.team)) {
       return

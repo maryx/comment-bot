@@ -1,11 +1,11 @@
-const sampledThreshold = 0.05
+const sampledThreshold = 0.25
 const teamThrottleMS = 2 * 60 * 60 * 1000 // 2 hours
 
 module.exports = function (app) {
   var teamsLastAmbient = {}
 
   return function ambientCheck (team) {
-    var sendMessage = Math.random() > sampledThreshold
+    var sendMessage = Math.random() <= sampledThreshold
     if (!sendMessage) {
       return false
     }
