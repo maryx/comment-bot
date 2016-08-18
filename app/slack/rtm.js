@@ -68,20 +68,21 @@ module.exports = (app) => {
   })
 
   controller.hears('spam', allMessages, (bot, message) => {
-    bot.reply(message, ':exclamation: ARE YOU READY?!?!? :exclamation:')
-    bot.reply(message, 'https://files.slack.com/files-pri/T0M1J11FE-F22DBCX4P/siren.gif')
-
-      for (var i = 0; i < 10; i++) {
+      bot.reply(message, ':exclamation: ARE YOU READY?!?!? :exclamation:')
+      var messageCount = 0
+      var interval = setInterval(function() {
           bot.startTyping(message)
-          app.comment.newComment(message.team, (err, comment, commentId) => {
+          app.comments.newComment(message.team, (err, comment, commentId) => {
               if (err) {
                   app.log.error(err.message)
               }
-              setTimeout(() => {
-                  bot.reply(message, comment || app.messages('NO_COMMENT_INITIATED'))
-              }, 500)
+              bot.reply(message, comment || app.messages('NO_COMMENT_INITIATED'))
+              messageCount += 1
+              if (messageCount >= 10) {
+                  clearInterval(interval)
+              }
           })
-      }
+      }, 500)
   })
 
   controller.hears(['420', 'weed', 'colorado', 'farm'], allMessages, (bot, message) => {
@@ -97,7 +98,7 @@ module.exports = (app) => {
     bot.reply(message, app.messages('YAHOO_COMMENT'))
     bot.startTyping(message)
 
-    app.comment.newComment(message.team, (err, comment, commentId) => {
+    app.comments.newComment(message.team, (err, comment, commentId) => {
       if (err) {
         app.log.error(err.message)
       }
