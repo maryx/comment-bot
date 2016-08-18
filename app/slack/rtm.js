@@ -35,7 +35,7 @@ module.exports = (app) => {
   var atBot = ['direct_message', 'direct_mention', 'mention']
   var allMessages = ['direct_message', 'direct_mention', 'mention', 'ambient']
 
-  controller.hears('comment', atBot, (bot, message) => {
+  controller.hears(['comment', 'say something', 'hey'], atBot, (bot, message) => {
     // filter out a matching slash command
     if (message.text === '/comment') {
       return
@@ -65,6 +65,27 @@ module.exports = (app) => {
     setTimeout(() => {
         bot.reply(message, app.messages('SHRUG_COMMENT'))
     }, 2000)
+  })
+
+  controller.hears('spam', allMessages, (bot, message) => {
+    bot.reply(message, ':exclamation: ARE YOU READY?!?!? :exclamation:')
+    bot.reply(message, 'https://files.slack.com/files-pri/T0M1J11FE-F22DBCX4P/siren.gif')
+
+      for (var i = 0; i < 10; i++) {
+          bot.startTyping(message)
+          app.comment.newComment(message.team, (err, comment, commentId) => {
+              if (err) {
+                  app.log.error(err.message)
+              }
+              setTimeout(() => {
+                  bot.reply(message, comment || app.messages('NO_COMMENT_INITIATED'))
+              }, 500)
+          })
+      }
+  })
+
+  controller.hears(['420', 'weed', 'colorado', 'farm'], allMessages, (bot, message) => {
+    bot.reply(message, ':ok_hand::weed::ok_hand::eyes::dank_leaf::eyes::ok_hand::eyes::ok_hand::greg_in_colorado: good shit go౦ԁ sHit:ok_hand: thats :heavy_check_mark: some good:bong::ok_hand:shit right:ok_hand::greg_in_colorado:there:ok_hand::ok_hand::ok_hand: right:heavy_check_mark:there :heavy_check_mark::heavy_check_mark:if i do ƽaү so my self :100: i say so :100: thats what im talking about right there right there (chorus: ʳᶦᵍʰᵗ ᵗʰᵉʳᵉ) mMMMMᎷМ:100: :ok_hand::ok_hand: :ok_hand:НO0ОଠOOOOOОଠଠOoooᵒᵒᵒᵒᵒᵒᵒᵒᵒ:ok_hand: :weed::ok_hand: :dank_leaf: :100: :ok_hand: :eyes: :eyes: :420: :ok_hand::ok_hand:Good shit')
   })
 
   controller.hears('yahoo', allMessages, (bot, message) => {
