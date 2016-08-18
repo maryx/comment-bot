@@ -71,6 +71,7 @@ module.exports = (app) => {
       bot.reply(message, ':exclamation: ARE YOU READY?!?!? :exclamation:')
       var messageCount = 0
       var interval = setInterval(function() {
+          bot.reply(message, ':rotating_light: :exclamation: :white_check_mark: :zap: :rotating_light: :exclamation: :white_check_mark: :zap: :rotating_light: :exclamation: :white_check_mark: :zap:')
           bot.startTyping(message)
           app.comments.newComment(message.team, (err, comment, commentId) => {
               if (err) {
@@ -82,7 +83,7 @@ module.exports = (app) => {
                   clearInterval(interval)
               }
           })
-      }, 500)
+      }, 1500)
   })
 
   controller.hears(['420', 'weed', 'colorado', 'farm'], allMessages, (bot, message) => {
