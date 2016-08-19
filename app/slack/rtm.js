@@ -69,21 +69,22 @@ module.exports = (app) => {
 
   controller.hears('spam', allMessages, (bot, message) => {
       bot.reply(message, ':exclamation: ARE YOU READY?!?!? :exclamation:')
+      bot.reply(message, ':exclamation::exclamation::exclamation: *ARE YOU READY?!?!?* :exclamation::exclamation::exclamation:')
       var messageCount = 0
       var interval = setInterval(function() {
-          bot.reply(message, ':rotating_light: :exclamation: :white_check_mark: :zap: :rotating_light: :exclamation: :white_check_mark: :zap: :rotating_light: :exclamation: :white_check_mark: :zap:')
           bot.startTyping(message)
           app.comments.newComment(message.team, (err, comment, commentId) => {
               if (err) {
                   app.log.error(err.message)
               }
+              bot.reply(message, ':rotating_light: :loudspeaker: :exclamation: :white_check_mark: :zap: :bangbang: :eight_spoked_asterisk: :heavy_check_mark: :soon: :mega: :clapping: :ballot_box_with_check: :pikachu: :beepbooping:')
               bot.reply(message, comment || app.messages('NO_COMMENT_INITIATED'))
               messageCount += 1
               if (messageCount >= 10) {
                   clearInterval(interval)
               }
           })
-      }, 1500)
+      }, 2000)
   })
 
   controller.hears(['420', 'weed', 'colorado', 'farm'], allMessages, (bot, message) => {
